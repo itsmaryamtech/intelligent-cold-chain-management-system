@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intelligent Cold Chain Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ch:#252525;--or:#C65D32;--cr:#F4EBDD;--bg:#F4EBDD;--tx:#252525;--mut:#5b544b;--surf:#fbf6ee;--ln:#d9cbb6;--ok:#3d7a4f;--wa:#b7791f;--cr2:#b3261e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1d1d;--tx:#F4EBDD;--mut:#b9ae9d;--surf:#2a2a2a;--ln:#444;--ok:#6fbf86;--wa:#e0a84a;--cr2:#ff7b72}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;line-height:1.05;margin:0;letter-spacing:.01em}
+h2{font-size:clamp(34px,5vw,52px)}h3{font-size:24px}
+a{color:inherit}.w{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:84px 0}.eye{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--or);font-weight:600;margin-bottom:12px}
+nav{position:sticky;top:0;z-index:20;background:var(--ch);color:var(--cr);padding-top:env(safe-area-inset-top,0px)}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:20px;text-decoration:none;white-space:nowrap}.logo b{color:var(--or)}
+.links{display:flex;gap:18px;font-size:14px;align-items:center}.links a{text-decoration:none;opacity:.85}.links a:hover{opacity:1;color:var(--or)}
+.btn{display:inline-block;border:0;cursor:pointer;font:600 15px "IBM Plex Sans",sans-serif;padding:13px 22px;text-decoration:none;background:var(--or);color:#fff;transition:.2s}
+.btn:hover{transform:translateY(-2px);background:#a94c26}.btn.g{background:transparent;border:1.5px solid currentColor;color:inherit}.btn.g:hover{background:rgba(198,93,50,.15)}
+.btn.s{padding:8px 14px;font-size:13px}.menu{display:none;background:none;border:1px solid var(--cr);color:var(--cr);padding:6px 10px}
+@media(max-width:960px){.menu{display:block}.links{display:none;position:absolute;top:60px;left:0;right:0;background:var(--ch);flex-direction:column;align-items:flex-start;padding:16px 20px}.links.o{display:flex}}
+.hero{background:var(--ch);color:var(--cr);padding:80px 0 90px;overflow:hidden}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}@media(max-width:860px){.hero .w{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(44px,7vw,84px);margin-bottom:20px}.hero h1 em{color:var(--or);font-style:normal}
+.hero p{color:#d6cbb9;max-width:520px;margin-bottom:28px}.row{display:flex;gap:12px;flex-wrap:wrap}
+.panel{border:1px solid #444;background:#1c1c1c;padding:18px}.panel .h{display:flex;justify-content:space-between;font-size:12px;color:#a99f90;margin-bottom:10px}
+.big{font:700 64px/1 "Barlow Condensed",sans-serif;color:var(--cr)}.big small{font-size:24px;color:var(--or)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;font-size:12px;color:#a99f90}.mini b{display:block;font:700 22px "Barlow Condensed";color:var(--cr)}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:#6fbf86;margin-right:6px;animation:p 1.6s infinite}@keyframes p{50%{opacity:.25}}
+.rv{opacity:0;transform:translateY(22px);transition:.7s}.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.pulse{animation:none}}
+.intro{max-width:640px;color:var(--mut);margin-top:14px}
+.sol{display:grid;grid-template-columns:240px 1fr;margin-top:36px;border:1px solid var(--ln)}@media(max-width:760px){.sol{grid-template-columns:1fr}}
+.tabs{display:flex;flex-direction:column;background:var(--ch)}@media(max-width:760px){.tabs{flex-direction:row;overflow-x:auto}}
+.tabs button{background:none;border:0;border-left:3px solid transparent;color:#cfc4b2;text-align:left;padding:14px 18px;cursor:pointer;font:500 15px "IBM Plex Sans";white-space:nowrap}
+.tabs button.on{color:#fff;border-color:var(--or);background:#333}
+.sbody{padding:30px;background:var(--surf)}.sbody ul{padding:0;list-style:none;margin:18px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}@media(max-width:560px){.sbody ul{grid-template-columns:1fr}}
+.sbody li{border-top:2px solid var(--or);padding-top:8px;font-size:15px}.note{font-size:13px;color:var(--mut);margin-top:20px}
+.dark{background:var(--ch);color:var(--cr)}.dark .intro{color:#bdb2a1}
+.dash{margin-top:30px;display:grid;grid-template-columns:2fr 1fr;gap:16px}@media(max-width:860px){.dash{grid-template-columns:1fr}}
+.box{background:#2f2f2f;border:1px solid #444;padding:16px}.box h4{margin:0 0 10px;font:600 12px "IBM Plex Sans";letter-spacing:.14em;text-transform:uppercase;color:#a99f90}
+.banner{background:var(--or);color:#fff;font-size:13px;padding:8px 14px;font-weight:600;margin-top:24px}
+.zones{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.zones button{background:#252525;color:var(--cr);border:1px solid #555;padding:8px 12px;cursor:pointer;font:13px "IBM Plex Sans"}.zones button.on{border-color:var(--or);background:#3a2a22}
+.st{display:inline-block;padding:2px 8px;font-size:11px;font-weight:600;border-radius:2px}.st.ok{background:#1f3a29;color:#8fd6a6}.st.wa{background:#4a3712;color:#f0bf66}.st.cr{background:#521a16;color:#ff9a92}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:7px 4px;border-bottom:1px solid #444}th{color:#a99f90;font-weight:500}
+.wrap{overflow-x:auto}svg text{fill:#a99f90;font:11px "IBM Plex Sans"}
+.flow{display:flex;flex-wrap:wrap;gap:0;margin:12px 0}.flow span{flex:1;min-width:92px;font-size:11px;text-align:center;padding:8px 4px;border:1px solid #555;margin-left:-1px;color:#a99f90}.flow span.on{background:var(--or);color:#fff;border-color:var(--or)}.flow span.dn{background:#3d4a40;color:#cde}
+.lim{display:flex;gap:10px;align-items:center;font-size:13px;margin:10px 0;flex-wrap:wrap}.lim input,.lim select{width:70px;background:#252525;border:1px solid #555;color:var(--cr);padding:5px}.lim select{width:auto}
+.log{max-height:150px;overflow:auto;font-size:12px;color:#cfc4b2;border-left:2px solid var(--or);padding-left:10px}.log div{margin-bottom:5px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:34px;border-top:2px solid var(--ch)}@media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+.steps div{padding:18px 16px 18px 0}.steps b{font:700 40px "Barlow Condensed";color:var(--or)}
+.why{columns:2;gap:40px;margin-top:30px}@media(max-width:700px){.why{columns:1}}.why p{break-inside:avoid;margin:0 0 18px;padding-left:14px;border-left:3px solid var(--or)}.why strong{display:block}
+.roi{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:30px}@media(max-width:800px){.roi{grid-template-columns:1fr}}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;font:15px "IBM Plex Sans";padding:10px;border:1.5px solid var(--ln);background:var(--surf);color:var(--tx)}input:focus,select:focus,textarea:focus{outline:2px solid var(--or);outline-offset:1px}
+.res{background:var(--ch);color:var(--cr);padding:26px}.res .v{font:700 40px "Barlow Condensed";color:var(--or)}.res div{margin-bottom:14px;font-size:14px}.res small{color:#a99f90;display:block}
+form{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-top:26px}@media(max-width:700px){form{grid-template-columns:1fr}}.full{grid-column:1/-1}
+.err{color:var(--cr2);font-size:12px;min-height:16px}.hp{position:absolute;left:-9999px}
+.ok-msg{background:var(--surf);border-left:4px solid var(--or);padding:20px;margin-top:20px}
+footer{background:var(--ch);color:#bdb2a1;padding:40px 0;font-size:14px}footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+</style></head><body>
+<nav><div class="w"><a class="logo" href="#home">COLD<b>CHAIN</b> / IMS</a>
+<button class="menu" id="mb" aria-label="Menu">Menu</button>
+<div class="links" id="lk"><a href="#solutions">Solutions</a><a href="#industries">Industries</a><a href="#platform">Platform</a><a href="#how">How It Works</a><a href="#dashboard">Dashboard</a><a href="#roi">ROI</a><a href="#technology">Technology</a><a href="#contact">Contact</a><a class="btn s" href="#consult">Request Consultation</a></div></div></nav>
+
+<header class="hero" id="home"><div class="w"><div>
+<div class="eye">Intelligent Cold Chain Management System</div>
+<h1>Protect Every Degree. <em>Strengthen Every Link</em> in Your Cold Chain.</h1>
+<p>One platform for visibility into storage conditions, product exposure, operational incidents and transportation, with limits you configure for each product and regulation.</p>
+<div class="row"><a class="btn" href="#consult">Request a Consultation</a><a class="btn g" href="#platform">Explore Platform</a></div></div>
+<div class="panel" aria-label="Simulated monitoring preview"><div class="h"><span><span class="pulse"></span>ZONE A · FROZEN STORE</span><span>SIMULATED</span></div>
+<div class="big" id="hT">-20.0<small>°C</small></div>
+<svg viewBox="0 0 300 70" width="100%" id="hS"><polyline fill="none" stroke="#C65D32" stroke-width="2" points=""/></svg>
+<div class="mini"><div><b id="hH">62%</b>Humidity</div><div><b>12/12</b>Sensors online</div><div><b id="hS2">Normal</b>Status</div></div></div></div></header>
+
+<section id="solutions"><div class="w rv"><div class="eye">Solutions</div><h2>Visibility from dock to destination</h2>
+<p class="intro">Monitor storage, product exposure, incidents and shipments in one place. Every threshold is configurable. No single temperature fits every product.</p>
+<div class="steps"><div><b>01</b><br>Storage conditions<br><small>Temperature and humidity by zone</small></div><div><b>02</b><br>Product exposure<br><small>Batch-level records</small></div><div><b>03</b><br>Operational incidents<br><small>Structured workflow</small></div><div><b>04</b><br>Transportation<br><small>Shipment condition history</small></div></div></div></section>
+
+<section id="industries" style="background:var(--surf)"><div class="w rv"><div class="eye">Industries</div><h2>Built around how each sector works</h2>
+<div class="sol"><div class="tabs" id="tabs"></div><div class="sbody"><h3 id="st"></h3><ul id="sl"></ul><p class="note">Limits are set per product and per applicable regulation, never as one universal value.</p></div></div></div></section>
+
+<section id="platform"><div class="w rv"><div class="eye">Platform</div><h2>Why choose this platform</h2>
+<div class="why"><p><strong>Centralized visibility</strong>All facilities and zones in one view.</p><p><strong>Batch-level exposure tracking</strong>See which product was exposed, and for how long.</p><p><strong>Configurable rules</strong>Limits and durations per zone and product.</p><p><strong>Structured incident workflows</strong>Acknowledge, act, resolve, with history.</p><p><strong>Storage and shipment monitoring</strong>Facilities and vehicles on a common model.</p><p><strong>Operational reporting</strong>Exposure and incident records for decisions.</p><p><strong>Integration-ready architecture</strong>Designed for sensors, gateways, GPS, messaging, ERP and WMS. None are connected in this preview.</p><p><strong>Multi-facility scale</strong>Add sites without changing the model.</p></div></div></section>
+
+<section id="how" class="dark"><div class="w rv"><div class="eye">How It Works</div><h2>From reading to resolution</h2>
+<p class="intro">Detection starts as transparent, rule-based evaluation. Machine-learning prediction is a future capability, not a current one.</p>
+<div class="steps" style="border-color:#555"><div><b>1</b><br>Sensor reading</div><div><b>2</b><br>Rule evaluation<br><small>Limits and duration</small></div><div><b>3</b><br>Risk classification<br><small>Warning or critical</small></div><div><b>4</b><br>Alert, acknowledgement, corrective action, resolution</div></div></div></section>
+
+<section id="dashboard" class="dark" style="padding-top:0"><div class="w"><div class="eye">Interactive Dashboard</div><h2>Try the monitoring workflow</h2>
+<div class="banner">SIMULATED DATA. Not real sensor telemetry. No hardware is connected.</div>
+<div class="dash"><div class="box"><div class="zones" id="zs"></div><svg viewBox="0 0 600 200" width="100%" id="ch"></svg>
+<div class="lim">Limits °C: min <input id="lmin" type="number" step=".5" aria-label="Min"> max <input id="lmax" type="number" step=".5" aria-label="Max"> <button class="btn s" id="sim">Simulate excursion</button></div>
+<div class="flow" id="fl"></div><div class="row" id="ia"></div></div>
+<div><div class="box"><h4>Current readings</h4><div class="wrap"><table id="tb"></table></div></div>
+<div class="box" style="margin-top:16px"><h4>Incident timeline</h4><div class="log" id="lg"><div>No incidents yet.</div></div></div></div></div>
+<div class="dash" style="grid-template-columns:1fr 1fr 1fr"><div class="box"><h4>Inventory summary</h4><table><tr><th>Zone</th><th>Batches</th></tr><tr><td>Frozen Store A</td><td>14</td></tr><tr><td>Chiller B</td><td>9</td></tr><tr><td>Pharma C</td><td>6</td></tr><tr><td>Produce D</td><td>11</td></tr></table></div>
+<div class="box"><h4>Shipments (sample)</h4><table><tr><th>ID</th><th>Status</th></tr><tr><td>SH-1041</td><td><span class="st ok">In transit</span></td></tr><tr><td>SH-1042</td><td><span class="st wa">Delayed</span></td></tr><tr><td>SH-1043</td><td><span class="st ok">Delivered</span></td></tr></table></div>
+<div class="box"><h4>Affected batches</h4><div id="ab" style="font-size:13px;color:#cfc4b2">None. All zones within limits.</div></div></div></div></section>
+
+<section id="roi"><div class="w rv"><div class="eye">ROI Calculator</div><h2>Estimate your exposure</h2>
+<div class="roi"><div>
+<label for="r1">Monthly product volume (units)</label><input id="r1" type="number" min="0" value="10000">
+<label for="r2">Estimated value per unit</label><input id="r2" type="number" min="0" value="20">
+<label for="r3">Current monthly spoilage or loss (%)</label><input id="r3" type="number" min="0" max="100" value="2">
+<label for="r4">Average monthly operational cost</label><input id="r4" type="number" min="0" value="15000">
+<label for="r5">Expected loss reduction, your assumption (%)</label><input id="r5" type="number" min="0" max="100" value="20">
+<label for="r6">Investment cost (optional)</label><input id="r6" type="number" min="0" value="0"></div>
+<div class="res" aria-live="polite"><div><small>Estimated monthly loss exposure</small><span class="v" id="o1"></span></div><div><small>Potential monthly savings (assumption)</small><span class="v" id="o2"></span></div><div><small>Estimated annual savings</small><span class="v" id="o3"></span></div><div><small>Estimated payback period</small><span class="v" id="o4"></span></div><small>All outputs are estimates based on your inputs, not guaranteed savings.</small></div></div></div></section>
+
+<section id="technology" style="background:var(--surf)"><div class="w rv"><div class="eye">About the Technology</div><h2>Open, rule-based, integration-ready</h2>
+<p class="intro">The target architecture is a React and TypeScript frontend with a FastAPI and PostgreSQL backend, role-based access control and REST APIs. Sensors, gateways, GPS devices, email and SMS providers, and ERP or WMS systems can be connected later. This preview is frontend only: no hardware, backend or third-party service is active.</p></div></section>
+
+<section id="consult"><div class="w rv"><div class="eye">Request Consultation</div><h2>Talk to us about your cold chain</h2>
+<form id="f" novalidate><div class="hp"><label>Leave blank<input id="hp" tabindex="-1" autocomplete="off"></label></div></form>
+<div id="done"></div></div></section>
+
+<section id="contact" style="background:var(--surf);padding:56px 0"><div class="w"><div class="eye">Contact</div><h2>Get in touch</h2><p class="intro">Reach us directly, or send a request through the consultation form above.</p><div class="row" style="margin-top:20px"><a class="btn" href="https://wa.me/923236202778" target="_blank" rel="noopener">WhatsApp +92 323 6202778</a><a class="btn g" href="mailto:maryamaientrepreneur@gmail.com">maryamaientrepreneur@gmail.com</a></div></div></section>
+<footer><div class="w"><span>© 2026 Intelligent Cold Chain Management System</span><span>Dashboard figures are simulated.</span></div></footer>
+
+<script>
+const $=i=>document.getElementById(i);
+$('mb').onclick=()=>$('lk').classList.toggle('o');
+document.querySelectorAll('#lk a').forEach(a=>a.onclick=()=>$('lk').classList.remove('o'));
+const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.1});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+/* solutions */
+const S={"Cold Storage":["Temperature and humidity monitoring","Storage-zone visibility","Sensor status","Temperature excursion detection"],"Frozen Food":["Frozen inventory monitoring","Batch-level exposure records","Shipment condition tracking","Incident management"],"Pharmaceutical":["Configurable temperature limits","Monitoring records","Alarm management","Traceability and audit history"],"Fresh Produce":["Commodity-specific storage conditions","Humidity monitoring","Batch tracking","Storage and transport visibility"],"Food Processing":["Production and storage monitoring","Batch traceability","Operational alerts","Quality-risk visibility"],"Refrigerated Logistics":["Vehicle monitoring","Shipment tracking","Route and delivery events","Temperature exposure history"]};
+Object.keys(S).forEach((k,i)=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>pick(k);$('tabs').append(b)});
+function pick(k){[...$('tabs').children].forEach(b=>b.classList.toggle('on',b.textContent==k));$('st').textContent=k;$('sl').innerHTML=S[k].map(x=>'<li>'+x+'</li>').join('')}
+pick("Cold Storage");
+/* hero ticker */
+let hp=[];setInterval(()=>{const t=-20+(Math.random()-.5)*1.2;hp.push(t);if(hp.length>30)hp.shift();
+$('hT').innerHTML=t.toFixed(1)+'<small>°C</small>';$('hH').textContent=Math.round(62+Math.random()*3)+'%';
+$('hS').firstElementChild.setAttribute('points',hp.map((v,i)=>(i*10.3)+','+(35-(v+20)*25)).join(' '))},1000);
+/* dashboard */
+const Z=[{n:"Frozen Store A",min:-24,max:-18,base:-21,h:62},{n:"Chiller B",min:2,max:8,base:4.5,h:78},{n:"Pharma C",min:2,max:8,base:5,h:45},{n:"Produce D",min:8,max:12,base:10,h:90}];
+Z.forEach(z=>{z.hist=Array.from({length:40},()=>z.base+(Math.random()-.5)*.8);z.exc=0;z.inc=null;z.t=z.base});
+let sel=0,ticks=0;
+const stat=z=>z.t>z.max||z.t<z.min?(z.exc>=5||z.t>z.max+3||z.t<z.min-3?'cr':'wa'):'ok';
+const lab={ok:'Normal',wa:'Warning',cr:'Critical'};
+const STEPS=["Sensor reading","Rule evaluation","Risk classification","Alert","Acknowledged","Corrective action","Resolved"];
+function log(m){const l=$('lg');if(l.firstChild&&l.firstChild.textContent=='No incidents yet.')l.innerHTML='';const d=document.createElement('div');d.textContent=new Date().toLocaleTimeString()+' · '+m;l.prepend(d)}
+function build(){$('zs').innerHTML='';Z.forEach((z,i)=>{const b=document.createElement('button');b.textContent=z.n;b.className=i==sel?'on':'';b.onclick=()=>{sel=i;build();draw()};$('zs').append(b)});
+$('lmin').value=Z[sel].min;$('lmax').value=Z[sel].max}
+$('lmin').onchange=e=>Z[sel].min=+e.target.value;$('lmax').onchange=e=>Z[sel].max=+e.target.value;
+$('sim').onclick=()=>{const z=Z[sel];if(z.inc||z.exc)return;z.exc=1;log('Demo: excursion simulated in '+z.n)};
+function tick(){ticks++;Z.forEach(z=>{if(z.exc){z.exc++;z.t=z.max+1+Math.min(z.exc,12)*.7}else if(z.inc){z.t=z.base+(Math.random()-.5)*.4}else z.t=z.base+(Math.random()-.5)*.6;z.hist.push(z.t);z.hist.shift();
+const s=stat(z);if(s!='ok'&&!z.inc){z.inc={step:3,sev:s};log(z.n+': reading '+z.t.toFixed(1)+'°C outside '+z.min+' to '+z.max+'. Classified '+lab[s]+'. Alert raised.')}
+else if(z.inc&&z.inc.step<=3&&s=='cr'&&z.inc.sev!='cr'){z.inc.sev='cr';log(z.n+': escalated to Critical (duration or magnitude)')}});draw()}
+function pts(z,w,h,lo,hi){return z.hist.map((v,i)=>(40+i*(w-50)/39)+','+(h-15-(v-lo)/(hi-lo)*(h-30))).join(' ')}
+function draw(){const z=Z[sel],lo=Math.min(z.min,...z.hist)-2,hi=Math.max(z.max,...z.hist)+2,y=v=>185-(v-lo)/(hi-lo)*170;
+$('ch').innerHTML='<rect x="40" y="'+y(z.max)+'" width="550" height="'+(y(z.min)-y(z.max))+'" fill="#3d7a4f" opacity=".18"/><polyline fill="none" stroke="#C65D32" stroke-width="2.2" points="'+pts(z,600,200,lo,hi)+'"/><text x="2" y="'+(y(z.max)+4)+'">'+z.max+'°</text><text x="2" y="'+(y(z.min)+4)+'">'+z.min+'°</text><text x="44" y="12">'+z.n+' · simulated · '+z.t.toFixed(1)+'°C · '+Math.round(z.h+Math.random()*2)+'% RH</text>';
+$('tb').innerHTML='<tr><th>Zone</th><th>°C</th><th>Status</th></tr>'+Z.map(q=>{const s=stat(q);return '<tr><td>'+q.n+'</td><td>'+q.t.toFixed(1)+'</td><td><span class="st '+s+'">'+lab[s]+'</span></td></tr>'}).join('');
+const inc=z.inc;$('fl').innerHTML=STEPS.map((s,i)=>'<span class="'+(inc?(i<inc.step?'dn':i==inc.step?'on':''):'')+'">'+s+'</span>').join('');
+const ia=$('ia');ia.innerHTML='';
+if(inc&&inc.step==3){add('Acknowledge',()=>{inc.step=4;log(z.n+': acknowledged by operator (demo)');draw()})}
+if(inc&&inc.step==4){const sl=document.createElement('select');sl.setAttribute('aria-label','Corrective action');['Check door seal','Move stock to backup zone','Service refrigeration unit'].forEach(o=>sl.add(new Option(o)));sl.style.width='auto';ia.append(sl);add('Record action',()=>{inc.step=5;inc.act=sl.value;z.exc=0;log(z.n+': corrective action recorded: '+inc.act);draw()})}
+if(inc&&inc.step==5){add('Resolve incident',()=>{log(z.n+': incident resolved. Reading back within limits.');z.inc=null;draw()})}
+if(inc&&inc.step==6){z.inc=null}
+const aff=Z.filter(q=>q.inc).map(q=>q.n+': batches '+(q.n[0]=='F'?'FZ-220, FZ-221':q.n[0]=='C'?'CH-118':q.n[0]=='P'?'PH-077':'PR-310')+' (sample IDs)');
+$('ab').innerHTML=aff.length?aff.join('<br>'):'None. All zones within limits.';
+function add(t,f){const b=document.createElement('button');b.className='btn s';b.textContent=t;b.onclick=f;ia.append(b)}}
+build();draw();setInterval(tick,1500);
+/* roi */
+const n=i=>+$(i).value||0,fm=v=>'$'+Math.round(v).toLocaleString();
+function roi(){const exp=n('r1')*n('r2')*n('r3')/100,sv=exp*n('r5')/100,inv=n('r6');
+$('o1').textContent=fm(exp);$('o2').textContent=fm(sv);$('o3').textContent=fm(sv*12);
+$('o4').textContent=inv>0?(sv>0?(inv/sv).toFixed(1)+' months':'Not reached'):'Enter investment cost'}
+['r1','r2','r3','r4','r5','r6'].forEach(i=>$(i).oninput=roi);roi();
+/* form */
+const F=[["name","Full Name",1],["company","Company Name",1],["title","Job Title",1],["email","Business Email",1,"email"],["phone","Phone / WhatsApp",1,"tel"],["country","Country",1],["industry","Industry",1,"sel",Object.keys(S)],["ftype","Facility Type",1,"sel",["Cold store","Warehouse","Processing plant","Vehicle fleet","Other"]],["nfac","Number of Storage Facilities",1,"number"],["cap","Approximate Storage Capacity",0],["mon","Current Monitoring Method",0],["chal","Main Operational Challenges",0,"ta"],["sol","Required Solution",1,"sel",["Storage monitoring","Shipment monitoring","Incident management","Reporting","Full platform"]],["msg","Additional Message",0,"ta"]];
+const f=$('f');F.forEach(([id,l,r,t,o])=>{const d=document.createElement('div');if(t=='ta')d.className='full';
+let c=t=='sel'?'<select id="f_'+id+'"><option value="">Select</option>'+o.map(x=>'<option>'+x+'</option>').join('')+'</select>':t=='ta'?'<textarea id="f_'+id+'" rows="3"></textarea>':'<input id="f_'+id+'" type="'+(t||'text')+'">';
+d.innerHTML='<label for="f_'+id+'">'+l+(r?' *':'')+'</label>'+c+'<div class="err" id="e_'+id+'"></div>';f.append(d)});
+const cd=document.createElement('div');cd.className='full';cd.innerHTML='<label style="font-weight:400"><input type="checkbox" id="f_consent" style="width:auto"> I consent to my details being used to respond to this request. *</label><div class="err" id="e_consent"></div><button class="btn" id="sub" type="submit">Submit request</button>';f.append(cd);
+f.onsubmit=e=>{e.preventDefault();let bad=0;
+F.forEach(([id,l,r,t])=>{const v=$('f_'+id).value.trim();let m='';if(r&&!v)m='Required';else if(t=='email'&&v&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v))m='Enter a valid email';else if(t=='tel'&&v&&!/^\+?[0-9 ()-]{7,18}$/.test(v))m='Enter a valid phone number';$('e_'+id).textContent=m;if(m)bad=1});
+$('e_consent').textContent=$('f_consent').checked?'':'Consent is required';if(!$('f_consent').checked)bad=1;
+if(bad||$('hp').value)return;
+const b=$('sub');b.disabled=true;b.textContent='Submitting…';
+const txt='New consultation request\n'+F.map(([id,l])=>l+': '+($('f_'+id).value.trim()||'-')).join('\n');
+const wa='https://wa.me/923236202778?text='+encodeURIComponent(txt),ml='mailto:maryamaientrepreneur@gmail.com?subject='+encodeURIComponent('Consultation request: '+$('f_company').value.trim())+'&body='+encodeURIComponent(txt);
+setTimeout(()=>{f.style.display='none';$('done').innerHTML='<div class="ok-msg"><h3>Almost done, '+$('f_name').value.trim().replace(/[<>&]/g,'')+'.</h3><p>Your request is ready. Choose how to send it. It reaches us when you press send in WhatsApp or your email app.</p><div class="row"><a class="btn" href="'+wa+'" target="_blank" rel="noopener">Send via WhatsApp</a><a class="btn g" href="'+ml+'">Send via Email</a></div><p class="note">This page has no database. Requests are delivered by WhatsApp or email, not stored on a server.</p></div>'},600)};
+</script></body></html>
